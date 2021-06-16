@@ -132,11 +132,9 @@ void HexWidget::selection() {
             int centerX = byteArray[i].rect.center().x();
 
             if (cursorPos.x() < centerX) {
-                selectedCellStruct.selection.setRight(centerX);
-                selectedCellStruct.mask = MASK::FIRST;
+                setSelectionCell(i, MASK::FIRST);
             } else {
-                selectedCellStruct.selection.setLeft(centerX);
-                selectedCellStruct.mask = MASK::SECOND;
+                setSelectionCell(i, MASK::SECOND);
             }
 
             break;
@@ -181,4 +179,20 @@ void HexWidget::goUp() {
 
 void HexWidget::goDown() {
 
+}
+
+void HexWidget::setSelectionCell(int i, MASK mask) {
+    if (i < 0 || i >= byteArray.size()) {
+        return;
+    }
+
+    selectedCellStruct.index = i;
+    selectedCellStruct.mask = mask;
+    selectedCellStruct.selection = byteArray[i].rect;
+
+    if (mask == MASK::FIRST) {
+        selectedCellStruct.selection.setRight(byteArray[i].rect.center().x());
+    } else {
+        selectedCellStruct.selection.setLeft(byteArray[i].rect.center().x());
+    }
 }

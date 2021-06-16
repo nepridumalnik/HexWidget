@@ -54,6 +54,8 @@ private:
 
     void selection();
 
+    void setSelectionCell(int i, MASK mask);
+
     void keyPressEvent(QKeyEvent *event) override;
 
     void goRight();
