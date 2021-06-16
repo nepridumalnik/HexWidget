@@ -162,23 +162,55 @@ void HexWidget::keyPressEvent(QKeyEvent *event) {
             default:
                 break;
         }
+
+        update();
     }
 }
 
 void HexWidget::goRight() {
+    if (selectedCellStruct.index >= (byteArray.size() - 1)) {
+        selectedCellStruct.mask = MASK::SECOND;
+        selectedCellStruct.index = (byteArray.size() - 1);
+    } else {
+        if (selectedCellStruct.mask == MASK::FIRST) {
+            selectedCellStruct.mask = MASK::SECOND;
+        } else {
+            selectedCellStruct.mask = MASK::FIRST;
+            selectedCellStruct.index++;
+        }
+    }
 
+    setSelectionCell(selectedCellStruct.index, selectedCellStruct.mask);
 }
 
 void HexWidget::goLeft() {
+    if (selectedCellStruct.index <= 0) {
+        selectedCellStruct.mask = MASK::FIRST;
+        selectedCellStruct.index = 0;
+    } else {
+        if (selectedCellStruct.mask == MASK::FIRST) {
+            selectedCellStruct.mask = MASK::SECOND;
+            selectedCellStruct.index--;
+        } else {
+            selectedCellStruct.mask = MASK::FIRST;
+        }
+    }
 
+    setSelectionCell(selectedCellStruct.index, selectedCellStruct.mask);
 }
 
 void HexWidget::goUp() {
-
+    if (selectedCellStruct.index - columnNumber >= 0) {
+        selectedCellStruct.index -= (qint32) columnNumber;
+        setSelectionCell(selectedCellStruct.index, selectedCellStruct.mask);
+    }
 }
 
 void HexWidget::goDown() {
-
+    if (selectedCellStruct.index + columnNumber - byteArray.size() >= 0) {
+        selectedCellStruct.index += (qint32) columnNumber;
+        setSelectionCell(selectedCellStruct.index, selectedCellStruct.mask);
+    }
 }
 
 void HexWidget::setSelectionCell(int i, MASK mask) {

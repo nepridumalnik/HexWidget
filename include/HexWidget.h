@@ -27,7 +27,7 @@ public:
 private:
     SelectedCellStruct_t selectedCellStruct{};
     QVector<ByteRectStruct_t> byteArray{};
-    quint64 columnNumber = 16;
+    quint32 columnNumber = 16;
     quint8 rowOffset = 22;
     quint8 columnOffset = 22;
     QFont font;
