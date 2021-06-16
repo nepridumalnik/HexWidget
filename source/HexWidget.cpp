@@ -214,7 +214,7 @@ void HexWidget::goDown() {
 }
 
 void HexWidget::setSelectionCell(int i, MASK mask) {
-    if (i < 0 || i >= byteArray.size()) {
+    if (i < 0 or i >= byteArray.size()) {
         return;
     }
 
