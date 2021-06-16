@@ -10,7 +10,10 @@ set(QT_VERSION 5)
 set(REQUIRED_LIBS Core Gui Widgets)
 set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets)
 
-add_executable(${PROJECT_NAME} source/main.cpp)
+set(WIDGET_SRC source/HexWidget.cpp)
+
+include_directories(include)
+add_executable(${PROJECT_NAME} source/main.cpp ${WIDGET_SRC})
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
