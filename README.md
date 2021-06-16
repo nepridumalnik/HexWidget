@@ -1,0 +1,2 @@
+# HexWidget
+ Binary Editor
