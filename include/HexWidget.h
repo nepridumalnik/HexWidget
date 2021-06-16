@@ -55,4 +55,12 @@ private:
     void selection();
 
     void keyPressEvent(QKeyEvent *event) override;
+
+    void goRight();
+
+    void goLeft();
+
+    void goUp();
+
+    void goDown();
 };

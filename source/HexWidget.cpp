@@ -145,7 +145,40 @@ void HexWidget::selection() {
 }
 
 void HexWidget::keyPressEvent(QKeyEvent *event) {
-    qDebug()
+    int key = event->key();
 
-            << __FUNCTION__;
+    if (selectedCellStruct.index != -1) {
+        switch (key) {
+            case Qt::Key_Left:
+                goLeft();
+                break;
+            case Qt::Key_Right:
+                goRight();
+                break;
+            case Qt::Key_Up:
+                goUp();
+                break;
+            case Qt::Key_Down:
+                goDown();
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+void HexWidget::goRight() {
+
+}
+
+void HexWidget::goLeft() {
+
+}
+
+void HexWidget::goUp() {
+
+}
+
+void HexWidget::goDown() {
+
 }
