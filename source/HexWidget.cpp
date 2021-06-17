@@ -94,7 +94,13 @@ void HexWidget::drawRows(QPainter &painter) {
 
     for (auto &i : byteArray) {
         i.rect.moveBottomLeft(cursor);
-        painter.drawText(cursor, QString::number(i.byte, 16).toUpper());
+
+        QString text = QString::number((int)i.byte, 16).toUpper();
+        if (text.size() == 1) {
+            text = QChar('0') + text;
+        }
+
+        painter.drawText(cursor, text.right(2));
         counter++;
 
         newColumn();
@@ -161,6 +167,7 @@ void HexWidget::keyPressEvent(QKeyEvent *event) {
                 goDown();
                 break;
             default:
+                insertByte(key);
                 break;
         }
 
@@ -267,4 +274,67 @@ void HexWidget::setCharColor(const char *color) {
 
 void HexWidget::setBackgroundColor(const char *color) {
     backgroundColor.setNamedColor(color);
+}
+
+void HexWidget::insertByte(char b) {
+    if (selectedCellStruct.index < 0 or selectedCellStruct.index >= byteArray.size()) {
+        return;
+    }
+
+    unsigned char newByte = 0;
+    switch (b)
+    {
+    case Qt::Key_1:
+        newByte = BYTE_VALUE::ONE;
+        break;
+    case Qt::Key_2:
+        newByte = BYTE_VALUE::TWO;
+        break;
+    case Qt::Key_3:
+        newByte = BYTE_VALUE::THREE;
+        break;
+    case Qt::Key_4:
+        newByte = BYTE_VALUE::FOUR;
+        break;
+    case Qt::Key_5:
+        newByte = BYTE_VALUE::FIVE;
+        break;
+    case Qt::Key_6:
+        newByte = BYTE_VALUE::SIX;
+        break;
+    case Qt::Key_7:
+        newByte = BYTE_VALUE::SEVEN;
+        break;
+    case Qt::Key_8:
+        newByte = BYTE_VALUE::EIGHT;
+        break;
+    case Qt::Key_9:
+        newByte = BYTE_VALUE::NINE;
+        break;
+    case Qt::Key_A:
+        newByte = BYTE_VALUE::A;
+        break;
+    case Qt::Key_B:
+        newByte = BYTE_VALUE::B;
+        break;
+    case Qt::Key_C:
+        newByte = BYTE_VALUE::C;
+        break;
+    case Qt::Key_D:
+        newByte = BYTE_VALUE::D;
+        break;
+    case Qt::Key_E:
+        newByte = BYTE_VALUE::E;
+        break;
+    case Qt::Key_F:
+        newByte = BYTE_VALUE::F;
+        break;
+    default:
+        return;
+    }
+
+    byteArray[selectedCellStruct.index].byte &= ~selectedCellStruct.mask;
+    byteArray[selectedCellStruct.index].byte |= selectedCellStruct.mask & newByte;
+
+    goRight();
 }

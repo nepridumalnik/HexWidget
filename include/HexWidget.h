@@ -84,4 +84,6 @@ private:
     void setBackgroundColor(const char *color);
 
     QRect getCellRect();
+
+    void insertByte(char b);
 };
