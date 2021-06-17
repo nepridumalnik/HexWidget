@@ -27,9 +27,9 @@ public:
 private:
     SelectedCellStruct_t selectedCellStruct{};
     QVector<ByteRectStruct_t> byteArray{};
-    quint32 columnNumber = 16;
-    quint8 rowOffset = 22;
-    quint8 columnOffset = 22;
+    int columnNumber = 16;
+    int rowOffset = 22;
+    int columnOffset = 22;
     QFont font;
 
     const QPoint startOffsetPoint = QPoint(20, 50);

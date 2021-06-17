@@ -39,3 +39,4 @@
 build
 debug_build
 release_build
+CMakeLists.txt.user
