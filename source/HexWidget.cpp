@@ -335,6 +335,7 @@ void HexWidget::resetByteValue(char b) {
             break;
         case Qt::Key_Space:
             insertNewByte();
+            return;
         default:
             return;
     }
