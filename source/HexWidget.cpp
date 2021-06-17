@@ -16,9 +16,7 @@ HexWidget::HexWidget(QWidget *parent) : QWidget(parent) {
 }
 
 HexWidget::~HexWidget() {
-    if (fm != nullptr) {
-        delete fm;
-    }
+    delete fm;
 }
 
 void HexWidget::prependBuffer(const QByteArray &prependByteArray) {
