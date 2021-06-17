@@ -4,13 +4,18 @@
 #include <QWidget>
 #include <QPainter>
 #include <QMouseEvent>
+#include <QFontMetrics>
 #include <QApplication>
 
 #include "Structures.h"
 
+#define SYMBOL "C"
+
 class HexWidget : public QWidget {
 public:
     explicit HexWidget(QWidget *parent = nullptr);
+
+    ~HexWidget();
 
     void prependBuffer(const QByteArray &prependByteArray);
 
@@ -28,9 +33,10 @@ private:
     SelectedCellStruct_t selectedCellStruct{};
     QVector<ByteRectStruct_t> byteArray{};
     int columnNumber = 16;
-    int rowOffset = 22;
-    int columnOffset = 22;
-    QFont font;
+    int rowOffset = 0;
+    int columnOffset = 0;
+    QFont appFont;
+    QFontMetrics *fm = nullptr;
 
     const QPoint startOffsetPoint = QPoint(20, 50);
     const QPoint startHexPoint = QPoint(75, 50);
@@ -65,4 +71,6 @@ private:
     void goUp();
 
     void goDown();
+
+    void setFont(const QFont &font);
 };

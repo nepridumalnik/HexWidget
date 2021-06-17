@@ -6,14 +6,20 @@ HexWidget::HexWidget(QWidget *parent) : QWidget(parent) {
     setAutoFillBackground(true);
     setPalette(pal);
 
-    font = property("font").value<QFont>();
-    font.setPixelSize(14);
-    setFont(font);
+    appFont = property("font").value<QFont>();
+    appFont.setPixelSize(14);
+    setFont(appFont);
+}
+
+HexWidget::~HexWidget() {
+    if (fm != nullptr) {
+        delete fm;
+    }
 }
 
 void HexWidget::prependBuffer(const QByteArray &prependByteArray) {
     QRect rect;
-    int pixelSize = font.pixelSize() * 2;
+    int pixelSize = appFont.pixelSize() * 2;
     rect.setSize(QSize(pixelSize, pixelSize));
     for (auto b : prependByteArray) {
         byteArray.prepend(ByteRectStruct_t{b, rect});
@@ -24,7 +30,7 @@ void HexWidget::prependBuffer(const QByteArray &prependByteArray) {
 
 void HexWidget::appendBuffer(const QByteArray &appendByteArray) {
     QRect rect;
-    int pixelSize = font.pixelSize() * 2;
+    int pixelSize = appFont.pixelSize() * 2;
     rect.setSize(QSize(pixelSize, pixelSize));
     for (auto b : appendByteArray) {
         byteArray.append(ByteRectStruct_t{b, rect});
@@ -50,11 +56,11 @@ void HexWidget::clearBuffer() {
 }
 
 void HexWidget::newColumn() {
-    cursor.setX(cursor.x() + columnOffset + font.pixelSize());
+    cursor.setX(cursor.x() + columnOffset + appFont.pixelSize());
 }
 
 void HexWidget::newRow(QPoint point) {
-    cursor.setY(cursor.y() + rowOffset + font.pixelSize());
+    cursor.setY(cursor.y() + rowOffset + appFont.pixelSize());
     cursor.setX(point.x());
 }
 
@@ -71,7 +77,7 @@ void HexWidget::paintEvent(QPaintEvent *event) {
     painter.
             setPen(Qt::black);
     painter.
-            setFont(QFont("monospace", font.pixelSize())
+            setFont(QFont("monospace", appFont.pixelSize())
     );
 
     drawSelection(painter);
@@ -225,4 +231,20 @@ void HexWidget::setSelectionCell(int i, MASK mask) {
     } else {
         selectedCellStruct.selection.setLeft(byteArray[i].rect.center().x());
     }
+}
+
+void HexWidget::setFont(const QFont &font) {
+    QWidget::setFont(font);
+    appFont = font;
+
+    if (fm != nullptr) {
+        delete fm;
+    }
+
+    fm = new QFontMetrics(appFont);
+
+    columnOffset = fm->horizontalAdvance(SYMBOL) * 2;
+    rowOffset = fm->height() * 2;
+
+    update();
 }
