@@ -63,9 +63,6 @@ void HexWidget::drawSelection(QPainter &painter) {
         return;
     }
 
-    QRect blackRect = selectedCellStruct.selection;
-    blackRect.setRight(blackRect.x() + blackRect.width() - 1);
-    painter.drawRect(blackRect);
     painter.fillRect(selectedCellStruct.selection, Qt::blue);
 }
 
