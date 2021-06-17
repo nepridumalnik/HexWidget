@@ -58,7 +58,7 @@ void HexWidget::newColumn() {
 }
 
 void HexWidget::newRow(QPoint point) {
-    cursor.setY(cursor.y() + rowWidth + appFont.pixelSize());
+    cursor.setY(cursor.y() + rowWidth);
     cursor.setX(point.x());
 }
 
