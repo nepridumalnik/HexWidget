@@ -18,22 +18,16 @@ HexWidget::~HexWidget() {
 }
 
 void HexWidget::prependBuffer(const QByteArray &prependByteArray) {
-    QRect rect;
-    int pixelSize = appFont.pixelSize() * 2;
-    rect.setSize(QSize(pixelSize, pixelSize));
     for (auto b : prependByteArray) {
-        byteArray.prepend(ByteRectStruct_t{b, rect});
+        byteArray.prepend(ByteRectStruct_t{b, getCellRect()});
     }
 
     update();
 }
 
 void HexWidget::appendBuffer(const QByteArray &appendByteArray) {
-    QRect rect;
-    int pixelSize = appFont.pixelSize() * 2;
-    rect.setSize(QSize(pixelSize, pixelSize));
     for (auto b : appendByteArray) {
-        byteArray.append(ByteRectStruct_t{b, rect});
+        byteArray.append(ByteRectStruct_t{b, getCellRect()});
     }
     update();
 }
@@ -246,5 +240,17 @@ void HexWidget::setFont(const QFont &font) {
     columnOffset = fm->horizontalAdvance(SYMBOL) * 2;
     rowOffset = fm->height() * 2;
 
+    for (int i = 0; i < byteArray.size(); ++i) {
+        byteArray[i].rect = getCellRect();
+    }
+
     update();
+}
+
+QRect HexWidget::getCellRect() {
+    QRect rect;
+    int pixelSize = appFont.pixelSize() * 1.5;
+    rect.setSize(QSize(pixelSize, pixelSize));
+
+    return rect;
 }

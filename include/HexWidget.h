@@ -73,4 +73,6 @@ private:
     void goDown();
 
     void setFont(const QFont &font);
+
+    QRect getCellRect();
 };
