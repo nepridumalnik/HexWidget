@@ -212,12 +212,18 @@ void HexWidget::goUp() {
     if (selectedCellStruct.index - columnNumber >= 0) {
         selectedCellStruct.index -= (qint32) columnNumber;
         setSelectionCell(selectedCellStruct.index, selectedCellStruct.mask);
+    } else {
+        selectedCellStruct.index = 0;
+        setSelectionCell(selectedCellStruct.index, selectedCellStruct.mask);
     }
 }
 
 void HexWidget::goDown() {
     if (byteArray.size() -selectedCellStruct.index - columnNumber >= 0) {
         selectedCellStruct.index += (qint32) columnNumber;
+        setSelectionCell(selectedCellStruct.index, selectedCellStruct.mask);
+    } else {
+        selectedCellStruct.index = byteArray.size() - 1;
         setSelectionCell(selectedCellStruct.index, selectedCellStruct.mask);
     }
 }
