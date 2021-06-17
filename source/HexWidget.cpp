@@ -23,7 +23,7 @@ HexWidget::~HexWidget() {
 
 void HexWidget::prependBuffer(const QByteArray &prependByteArray) {
     for (auto b : prependByteArray) {
-        byteArray.prepend(ByteRectStruct_t{b, getCellRect()});
+        byteArray.prepend(ByteRectStruct{(quint8) b, getCellRect()});
     }
 
     update();
@@ -31,7 +31,7 @@ void HexWidget::prependBuffer(const QByteArray &prependByteArray) {
 
 void HexWidget::appendBuffer(const QByteArray &appendByteArray) {
     for (auto b : appendByteArray) {
-        byteArray.append(ByteRectStruct_t{b, getCellRect()});
+        byteArray.append(ByteRectStruct{(quint8) b, getCellRect()});
     }
     update();
 }

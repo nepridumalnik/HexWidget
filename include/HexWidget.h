@@ -30,8 +30,8 @@ public:
     void clearBuffer();
 
 private:
-    SelectedCellStruct_t selectedCellStruct{};
-    QVector<ByteRectStruct_t> byteArray{};
+    SelectedCellStruct selectedCellStruct{};
+    QVector<ByteRectStruct> byteArray{};
     int columnNumber = 16;
     int rowOffset = 0;
     int columnOffset = 0;
