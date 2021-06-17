@@ -287,7 +287,7 @@ void HexWidget::insertByte(char b) {
         return;
     }
 
-    unsigned char newByte = 0;
+    quint8 newByte = 0;
     switch (b) {
         case Qt::Key_0:
             newByte = BYTE_VALUE::ZERO;
