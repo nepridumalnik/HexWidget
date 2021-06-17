@@ -3,6 +3,10 @@
 #define and &&
 #define or ||
 
+constexpr char BLACK[] = "#000000";
+constexpr char WHITESMOKE[] = "#F5F5F5";
+constexpr char STEELBLUE[] = "#4682B4";
+
 enum MASK {
     FIRST = 0xF0u,
     SECOND = 0x0Fu

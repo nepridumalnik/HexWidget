@@ -1,9 +1,9 @@
 #include "HexWidget.h"
 
 HexWidget::HexWidget(QWidget *parent) : QWidget(parent) {
-    selectionColor.setNamedColor("#4682B4");
-    charColor.setNamedColor("#000000");
-    backgroundColor.setNamedColor("#F5F5F5");
+    selectionColor.setNamedColor(STEELBLUE);
+    charColor.setNamedColor(BLACK);
+    backgroundColor.setNamedColor(WHITESMOKE);
 
     QPalette pal(palette());
     pal.setColor(QPalette::Window, backgroundColor);
