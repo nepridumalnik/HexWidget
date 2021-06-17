@@ -77,5 +77,11 @@ private:
 
     void setFont(const QFont &font);
 
+    void setSelectionColor(const char *color);
+
+    void setCharColor(const char *color);
+
+    void setBackgroundColor(const char *color);
+
     QRect getCellRect();
 };

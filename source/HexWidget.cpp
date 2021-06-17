@@ -258,3 +258,15 @@ QRect HexWidget::getCellRect() {
 
     return rect;
 }
+
+void HexWidget::setSelectionColor(const char *color) {
+    selectionColor.setNamedColor(color);
+}
+
+void HexWidget::setCharColor(const char *color) {
+    charColor.setNamedColor(color);
+}
+
+void HexWidget::setBackgroundColor(const char *color) {
+    backgroundColor.setNamedColor(color);
+}
