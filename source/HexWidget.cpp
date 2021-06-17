@@ -250,7 +250,7 @@ void HexWidget::setFont(const QFont &font) {
 
     fm = new QFontMetrics(appFont);
 
-    columnOffset = fm->horizontalAdvance(SYMBOL) * 2;
+    columnOffset = fm->horizontalAdvance(SYMBOL) * 3;
     rowWidth = fm->height() * 2;
 
     for (auto &i : byteArray) {
@@ -334,7 +334,7 @@ void HexWidget::resetByteValue(char b) {
             newByte = BYTE_VALUE::F;
             break;
         case Qt::Key_Space:
-            resetByteValue();
+            insertNewByte();
         default:
             return;
     }
@@ -343,4 +343,10 @@ void HexWidget::resetByteValue(char b) {
     byteArray[selectedCellStruct.index].byte |= selectedCellStruct.mask & newByte;
 
     goRight();
+}
+
+void HexWidget::insertNewByte() {
+    byteArray.insert(selectedCellStruct.index, ByteRectStruct{(quint8) 0, getCellRect()});
+    selectedCellStruct.mask = MASK::FIRST;
+    update();
 }

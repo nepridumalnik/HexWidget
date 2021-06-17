@@ -86,4 +86,6 @@ private:
     QRect getCellRect();
 
     void resetByteValue(char b);
+
+    void insertNewByte();
 };
