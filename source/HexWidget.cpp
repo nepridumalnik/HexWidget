@@ -246,17 +246,15 @@ void HexWidget::setFont(const QFont &font) {
     QWidget::setFont(font);
     appFont = font;
 
-    if (fm != nullptr) {
-        delete fm;
-    }
+    delete fm;
 
     fm = new QFontMetrics(appFont);
 
     columnOffset = fm->horizontalAdvance(SYMBOL) * 2;
     rowWidth = fm->height() * 2;
 
-    for (int i = 0; i < byteArray.size(); ++i) {
-        byteArray[i].rect = getCellRect();
+    for (auto &i : byteArray) {
+        i.rect = getCellRect();
     }
 
     update();
