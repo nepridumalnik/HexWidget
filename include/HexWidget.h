@@ -33,7 +33,7 @@ private:
     SelectedCellStruct selectedCellStruct{};
     QVector<ByteRectStruct> byteArray{};
     int columnNumber = 16;
-    int rowOffset = 0;
+    int rowWidth = 0;
     int columnOffset = 0;
     QFont appFont;
     QFontMetrics *fm = nullptr;

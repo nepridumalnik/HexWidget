@@ -58,7 +58,7 @@ void HexWidget::newColumn() {
 }
 
 void HexWidget::newRow(QPoint point) {
-    cursor.setY(cursor.y() + rowOffset + appFont.pixelSize());
+    cursor.setY(cursor.y() + rowWidth + appFont.pixelSize());
     cursor.setX(point.x());
 }
 
@@ -255,7 +255,7 @@ void HexWidget::setFont(const QFont &font) {
     fm = new QFontMetrics(appFont);
 
     columnOffset = fm->horizontalAdvance(SYMBOL) * 2;
-    rowOffset = fm->height() * 2;
+    rowWidth = fm->height() * 2;
 
     for (int i = 0; i < byteArray.size(); ++i) {
         byteArray[i].rect = getCellRect();
@@ -266,7 +266,7 @@ void HexWidget::setFont(const QFont &font) {
 
 QRect HexWidget::getCellRect() {
     QRect rect;
-    rect.setSize(QSize(appFont.pixelSize() * 1.5, fm->height() * 1.2));
+    rect.setSize(QSize(rowWidth * 0.9f, fm->height() * 1.2));
     return rect;
 }
 
