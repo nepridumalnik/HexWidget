@@ -29,11 +29,11 @@ enum BYTE_VALUE {
 
 struct ByteRectStruct {
     quint8 byte = 0;
-    QRect rect;
+    QRect rect{};
 };
 
 struct SelectedCellStruct {
     qint32 index = -1;
-    QRect selection;
+    QRect selection{};
     MASK mask = MASK::FIRST;
 };
