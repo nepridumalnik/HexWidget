@@ -202,7 +202,7 @@ void HexWidget::goLeft() {
 
 void HexWidget::goUp() {
 
-    if (selectedCellStruct.index - columnNumber > 0) {
+    if (selectedCellStruct.index - columnNumber >= 0) {
         selectedCellStruct.index -= (qint32) columnNumber;
         setSelectionCell(selectedCellStruct.index, selectedCellStruct.mask);
     }
