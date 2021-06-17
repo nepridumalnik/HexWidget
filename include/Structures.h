@@ -9,6 +9,7 @@ enum MASK {
 };
 
 enum BYTE_VALUE {
+    ZERO = 0x00u,
     ONE = 0x11u,
     TWO = 0x22u,
     THREE = 0x33u,
@@ -26,13 +27,13 @@ enum BYTE_VALUE {
     F = 0xFFu
 };
 
-typedef struct ByteRectStruct_t {
-    char byte = 0;
+struct ByteRectStruct {
+    quint8 byte = 0;
     QRect rect;
-} ByteRectStruct;
+};
 
-typedef struct SelectedCellStruct_t {
+struct SelectedCellStruct {
     qint32 index = -1;
     QRect selection;
     MASK mask = MASK::FIRST;
-} SelectedCellStruct;
+};
