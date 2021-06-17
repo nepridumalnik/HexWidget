@@ -37,6 +37,9 @@ private:
     int columnOffset = 0;
     QFont appFont;
     QFontMetrics *fm = nullptr;
+    QColor selectionColor;
+    QColor charColor;
+    QColor backgroundColor;
 
     const QPoint startOffsetPoint = QPoint(20, 50);
     const QPoint startHexPoint = QPoint(75, 50);

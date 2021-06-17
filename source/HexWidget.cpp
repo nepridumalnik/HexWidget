@@ -1,8 +1,12 @@
 #include "HexWidget.h"
 
 HexWidget::HexWidget(QWidget *parent) : QWidget(parent) {
+    selectionColor.setNamedColor("#4682B4");
+    charColor.setNamedColor("#000000");
+    backgroundColor.setNamedColor("#F5F5F5");
+
     QPalette pal(palette());
-    pal.setColor(QPalette::Window, Qt::white);
+    pal.setColor(QPalette::Window, backgroundColor);
     setAutoFillBackground(true);
     setPalette(pal);
 
@@ -63,13 +67,13 @@ void HexWidget::drawSelection(QPainter &painter) {
         return;
     }
 
-    painter.fillRect(selectedCellStruct.selection, Qt::blue);
+    painter.fillRect(selectedCellStruct.selection, selectionColor);
 }
 
 void HexWidget::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.
-            setPen(Qt::black);
+            setPen(charColor);
     painter.
             setFont(QFont("monospace", appFont.pixelSize())
     );
