@@ -165,7 +165,7 @@ void HexWidget::keyPressEvent(QKeyEvent *event) {
                 goDown();
                 break;
             default:
-                insertByte(key);
+                resetByteValue(key);
                 break;
         }
 
@@ -278,7 +278,7 @@ void HexWidget::setBackgroundColor(const char *color) {
     backgroundColor.setNamedColor(color);
 }
 
-void HexWidget::insertByte(char b) {
+void HexWidget::resetByteValue(char b) {
     if (selectedCellStruct.index < 0 or selectedCellStruct.index >= byteArray.size()) {
         return;
     }
@@ -333,6 +333,8 @@ void HexWidget::insertByte(char b) {
         case Qt::Key_F:
             newByte = BYTE_VALUE::F;
             break;
+        case Qt::Key_Space:
+            resetByteValue();
         default:
             return;
     }
