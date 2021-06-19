@@ -29,9 +29,9 @@ public:
 
     void clearBuffer();
 
-    void setMaximum(int newMinimumSize);
+    void setMaximum(quint16 newMinimumSize);
 
-    void setMinimum(int newMaximumSize);
+    void setMinimum(quint16 newMaximumSize);
 
     QByteArray getBuffer();
 
@@ -41,8 +41,8 @@ private:
     int columnNumber = 16;
     int rowWidth = 0;
     int columnOffset = 0;
-    int minimumSize = 0;
-    int maximumSize = INT_MAX;
+    quint16 minimumSize = 0;
+    quint16 maximumSize = UINT16_MAX;
     QFont appFont;
     QFontMetrics *fm = nullptr;
     QColor selectionColor;

@@ -419,13 +419,19 @@ void HexWidget::removePrevious() {
     }
 }
 
-void HexWidget::setMinimum(int newMinimumSize) {
+void HexWidget::setMinimum(quint16 newMinimumSize) {
     minimumSize = newMinimumSize;
+    if (minimumSize > maximumSize) {
+        minimumSize = maximumSize;
+    }
     resizeBuffer();
 }
 
-void HexWidget::setMaximum(int newMaximumSize) {
+void HexWidget::setMaximum(quint16 newMaximumSize) {
     maximumSize = newMaximumSize;
+    if (maximumSize < minimumSize) {
+        maximumSize = minimumSize;
+    }
     resizeBuffer();
 }
 
