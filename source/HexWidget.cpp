@@ -417,16 +417,21 @@ void HexWidget::removePrevious() {
 
 void HexWidget::setMinimum(int newMinimumSize) {
     minimumSize = newMinimumSize;
+    resizeBuffer();
+}
+
+void HexWidget::setMaximum(int newMaximumSize) {
+    maximumSize = newMaximumSize;
+    resizeBuffer();
+}
+
+void HexWidget::resizeBuffer() {
     int tmp = minimumSize - byteArray.size();
     if (tmp > 0) {
         for (int i = 0; i < tmp; ++i) {
             byteArray.append(ByteRectStruct{0, getCellRect()});
         }
     }
-}
-
-void HexWidget::setMaximum(int newMaximumSize) {
-    maximumSize = newMaximumSize;
 
     if (maximumSize < byteArray.size()) {
         byteArray.resize(maximumSize);

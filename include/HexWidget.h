@@ -99,4 +99,6 @@ private:
     void removePrevious();
 
     void removeCurrent();
+
+    void resizeBuffer();
 };
