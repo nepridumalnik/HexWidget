@@ -89,4 +89,8 @@ private:
     void resetByteValue(int key);
 
     void insertNewByte();
+
+    void removePrevious();
+
+    void removeCurrent();
 };

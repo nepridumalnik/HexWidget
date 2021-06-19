@@ -170,6 +170,12 @@ void HexWidget::keyPressEvent(QKeyEvent *event) {
             case Qt::Key_Space:
                 insertNewByte();
                 break;
+            case Qt::Key_Backspace:
+                removePrevious();
+                break;
+            case Qt::Key_Delete:
+                removeCurrent();
+                break;
             default:
                 resetByteValue(key);
                 break;
@@ -358,5 +364,32 @@ void HexWidget::insertNewByte() {
     drawRows();
     selectedCellStruct.selection = byteArray[selectedCellStruct.index].rect;
     selectedCellStruct.selection.setRight(selectedCellStruct.selection.center().x());
-    update();
+}
+
+void HexWidget::removeCurrent() {
+    const int size = byteArray.size();
+
+    if (size == 1) {
+        byteArray.removeAt(0);
+        selectedCellStruct.index = -1;
+        return;
+    }
+
+    if (selectedCellStruct.index < size - 1) {
+        byteArray.removeAt(selectedCellStruct.index);
+    } else {
+        byteArray.removeAt(selectedCellStruct.index);
+        selectedCellStruct.index--;
+        selectedCellStruct.selection = byteArray[selectedCellStruct.index].rect;
+        selectedCellStruct.selection.setRight(selectedCellStruct.selection.center().x());
+    }
+}
+
+void HexWidget::removePrevious() {
+    if (selectedCellStruct.index > 0) {
+        selectedCellStruct.index--;
+        byteArray.removeAt(selectedCellStruct.index);
+        selectedCellStruct.selection = byteArray[selectedCellStruct.index - 1].rect;
+        selectedCellStruct.selection.setRight(selectedCellStruct.selection.center().x());
+    }
 }
