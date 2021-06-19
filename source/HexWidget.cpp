@@ -13,13 +13,10 @@ HexWidget::HexWidget(QWidget *parent) : QWidget(parent) {
     appFont = property("font").value<QFont>();
     appFont.setPixelSize(14);
     setFont(appFont);
-
-    painter = new QPainter(this);
 }
 
 HexWidget::~HexWidget() {
     delete fm;
-    delete painter;
 }
 
 void HexWidget::prependBuffer(const QByteArray &prependByteArray) {
@@ -74,27 +71,23 @@ void HexWidget::newRow(QPoint point) {
     cursor.setX(point.x());
 }
 
-void HexWidget::drawSelection() {
-    if (selectedCellStruct.index == -1) {
-        return;
+void HexWidget::drawSelection(QPainter *painter) {
+    if (-1 != selectedCellStruct.index) {
+        painter->fillRect(selectedCellStruct.selection, selectionColor);
     }
-
-    painter->fillRect(selectedCellStruct.selection, selectionColor);
 }
 
 void HexWidget::paintEvent(QPaintEvent *event) {
-    painter->begin(this);
-    painter->setPen(charColor);
-    painter->setFont(QFont("monospace", appFont.pixelSize()));
 
-    drawSelection();
-    drawRows();
+    QPainter painter(this);
+    painter.setPen(charColor);
+    painter.setFont(QFont("monospace", appFont.pixelSize()));
 
-    painter->end();
+    drawSelection(&painter);
+    drawRows(&painter);
 }
 
-void HexWidget::drawRows() {
-    bool paintingAlowed = painter->isActive();
+void HexWidget::drawRows(QPainter *painter) {
     cursor = startHexPoint;
     int counter = 0;
 
@@ -102,11 +95,11 @@ void HexWidget::drawRows() {
         i.rect.moveBottomLeft(cursor);
 
         QString text = QString::number((int) i.byte, 16).toUpper();
-        if (text.size() == 1) {
+        if (1 == text.size()) {
             text = QChar('0') + text;
         }
 
-        if (paintingAlowed) { painter->drawText(cursor, text.right(2)); }
+        if (nullptr != painter) { painter->drawText(cursor, text.right(2)); }
         counter++;
 
         newColumn();
@@ -120,14 +113,10 @@ void HexWidget::drawRows() {
 
 void HexWidget::mousePressEvent(QMouseEvent *event) {
     int key = event->button();
-
     if (key == Qt::LeftButton) {
         selection();
-
     }
-
     update();
-
 }
 
 void HexWidget::selection() {
@@ -147,7 +136,6 @@ void HexWidget::selection() {
             } else {
                 setSelectionCell(i, MASK::SECOND);
             }
-
             break;
         }
     }
@@ -187,6 +175,10 @@ void HexWidget::keyPressEvent(QKeyEvent *event) {
 }
 
 void HexWidget::goRight() {
+    if (-1 == selectedCellStruct.index and !byteArray.empty()) {
+        selectedCellStruct.index = byteArray.size() - 1;
+    }
+
     if (selectedCellStruct.index >= (byteArray.size() - 1)) {
         selectedCellStruct.mask = MASK::SECOND;
         selectedCellStruct.index = (byteArray.size() - 1);
@@ -203,6 +195,10 @@ void HexWidget::goRight() {
 }
 
 void HexWidget::goLeft() {
+    if (-1 == selectedCellStruct.index and !byteArray.empty()) {
+        selectedCellStruct.index = 0;
+    }
+
     if (selectedCellStruct.index <= 0) {
         selectedCellStruct.mask = MASK::FIRST;
         selectedCellStruct.index = 0;
@@ -219,6 +215,9 @@ void HexWidget::goLeft() {
 }
 
 void HexWidget::goUp() {
+    if (-1 == selectedCellStruct.index and !byteArray.empty()) {
+        selectedCellStruct.index = 0;
+    }
 
     if (selectedCellStruct.index - columnNumber >= 0) {
         selectedCellStruct.index -= (qint32) columnNumber;
@@ -230,6 +229,10 @@ void HexWidget::goUp() {
 }
 
 void HexWidget::goDown() {
+    if (-1 == selectedCellStruct.index and !byteArray.empty()) {
+        selectedCellStruct.index = byteArray.size() - 1;
+    }
+
     if (byteArray.size() - selectedCellStruct.index - columnNumber >= 0) {
         selectedCellStruct.index += (qint32) columnNumber;
         setSelectionCell(selectedCellStruct.index, selectedCellStruct.mask);
@@ -296,7 +299,7 @@ void HexWidget::resetByteValue(int key) {
         return;
     }
 
-    quint8 newByte;
+    quint8 newByte = 0;
 
     switch (key) {
         case Qt::Key_0:

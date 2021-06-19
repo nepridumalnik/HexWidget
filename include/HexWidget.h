@@ -48,7 +48,6 @@ private:
     QColor selectionColor;
     QColor charColor;
     QColor backgroundColor;
-    QPainter *painter = nullptr;
 
     const QPoint startHexPoint = QPoint(10, 30);
     QPoint cursor;
@@ -57,11 +56,11 @@ private:
 
     void newRow(QPoint point);
 
-    void drawSelection();
+    void drawSelection(QPainter *painter);
 
     void paintEvent(QPaintEvent *event) override;
 
-    void drawRows();
+    void drawRows(QPainter *painter = nullptr);
 
     void mousePressEvent(QMouseEvent *event) override;
 
