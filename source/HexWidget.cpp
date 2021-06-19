@@ -88,15 +88,9 @@ void HexWidget::paintEvent(QPaintEvent *event) {
     painter->setFont(QFont("monospace", appFont.pixelSize()));
 
     drawSelection();
-    drawHeader();
     drawRows();
-    drawAscii();
 
     painter->end();
-}
-
-void HexWidget::drawHeader() {
-
 }
 
 void HexWidget::drawRows() {
@@ -123,8 +117,6 @@ void HexWidget::drawRows() {
         }
     }
 }
-
-void HexWidget::drawAscii() {}
 
 void HexWidget::mousePressEvent(QMouseEvent *event) {
     int key = event->button();

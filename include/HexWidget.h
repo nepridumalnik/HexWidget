@@ -50,8 +50,7 @@ private:
     QColor backgroundColor;
     QPainter *painter = nullptr;
 
-    const QPoint startOffsetPoint = QPoint(20, 50);
-    const QPoint startHexPoint = QPoint(75, 50);
+    const QPoint startHexPoint = QPoint(10, 30);
     QPoint cursor;
 
     void newColumn();
@@ -62,11 +61,7 @@ private:
 
     void paintEvent(QPaintEvent *event) override;
 
-    void drawHeader();
-
     void drawRows();
-
-    void drawAscii();
 
     void mousePressEvent(QMouseEvent *event) override;
 
