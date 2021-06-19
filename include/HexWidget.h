@@ -29,12 +29,18 @@ public:
 
     void clearBuffer();
 
+    void setMaximum(uint64_t newMinimumSize);
+
+    void setMinimum(uint64_t newMaximumSize);
+
 private:
     SelectedCellStruct selectedCellStruct{};
     QVector<ByteRectStruct> byteArray{};
     int columnNumber = 16;
     int rowWidth = 0;
     int columnOffset = 0;
+    uint64_t minimumSize = 0;
+    uint64_t maximumSize = UINT64_MAX;
     QFont appFont;
     QFontMetrics *fm = nullptr;
     QColor selectionColor;

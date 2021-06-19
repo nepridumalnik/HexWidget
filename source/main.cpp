@@ -6,6 +6,7 @@ int main(int argc, char *argv[]) {
     HexWidget hexWidget;
     hexWidget.show();
     hexWidget.setBuffer(QByteArray("Some test data, another test dat"));
+    hexWidget.setMinimum(14);
     hexWidget.resize(750, 480);
 
     return QApplication::exec();

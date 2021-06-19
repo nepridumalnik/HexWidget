@@ -371,7 +371,11 @@ void HexWidget::insertNewByte() {
 }
 
 void HexWidget::removeCurrent() {
-    const int size = byteArray.size();
+    const uint64_t size = byteArray.size();
+
+    if (size <= minimumSize) {
+        return;
+    }
 
     if (size < 1) {
         return;
@@ -390,10 +394,22 @@ void HexWidget::removeCurrent() {
 }
 
 void HexWidget::removePrevious() {
+    if (byteArray.size() <= minimumSize) {
+        return;
+    }
+
     if (selectedCellStruct.index > 0) {
         selectedCellStruct.index--;
         byteArray.removeAt(selectedCellStruct.index);
         selectedCellStruct.selection = byteArray[selectedCellStruct.index - 1].rect;
         selectedCellStruct.selection.setRight(selectedCellStruct.selection.center().x());
     }
+}
+
+void HexWidget::setMinimum(uint64_t newMinimumSize) {
+    minimumSize = newMinimumSize;
+}
+
+void HexWidget::setMaximum(uint64_t newMaximumSize) {
+    maximumSize = newMaximumSize;
 }
