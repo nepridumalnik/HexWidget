@@ -355,6 +355,10 @@ void HexWidget::resetByteValue(int key) {
 }
 
 void HexWidget::insertNewByte() {
+    if (maximumSize <= byteArray.size()) {
+        return;
+    }
+
     if (selectedCellStruct.index >= 0) {
         byteArray.insert(selectedCellStruct.index + 1, ByteRectStruct{0, byteArray[selectedCellStruct.index].rect});
         selectedCellStruct.mask = MASK::FIRST;
