@@ -23,8 +23,13 @@ HexWidget::~HexWidget() {
 }
 
 void HexWidget::prependBuffer(const QByteArray &prependByteArray) {
+    int counter = 0;
     for (auto b : prependByteArray) {
+        if (counter >= maximumSize) {
+            break;
+        }
         byteArray.prepend(ByteRectStruct{(quint8) b, getCellRect()});
+        counter++;
     }
 
     update();
@@ -57,6 +62,7 @@ auto HexWidget::getBuffer() const {
 
 void HexWidget::clearBuffer() {
     byteArray.clear();
+    resizeBuffer();
 }
 
 void HexWidget::newColumn() {
