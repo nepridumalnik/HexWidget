@@ -153,36 +153,34 @@ void HexWidget::selection() {
 void HexWidget::keyPressEvent(QKeyEvent *event) {
     int key = event->key();
 
-    if (selectedCellStruct.index != -1) {
-        switch (key) {
-            case Qt::Key_Left:
-                goLeft();
-                break;
-            case Qt::Key_Right:
-                goRight();
-                break;
-            case Qt::Key_Up:
-                goUp();
-                break;
-            case Qt::Key_Down:
-                goDown();
-                break;
-            case Qt::Key_Space:
-                insertNewByte();
-                break;
-            case Qt::Key_Backspace:
-                removePrevious();
-                break;
-            case Qt::Key_Delete:
-                removeCurrent();
-                break;
-            default:
-                resetByteValue(key);
-                break;
-        }
-
-        update();
+    switch (key) {
+        case Qt::Key_Left:
+            goLeft();
+            break;
+        case Qt::Key_Right:
+            goRight();
+            break;
+        case Qt::Key_Up:
+            goUp();
+            break;
+        case Qt::Key_Down:
+            goDown();
+            break;
+        case Qt::Key_Space:
+            insertNewByte();
+            break;
+        case Qt::Key_Backspace:
+            removePrevious();
+            break;
+        case Qt::Key_Delete:
+            removeCurrent();
+            break;
+        default:
+            resetByteValue(key);
+            break;
     }
+
+    update();
 }
 
 void HexWidget::goRight() {
@@ -357,25 +355,31 @@ void HexWidget::resetByteValue(int key) {
 }
 
 void HexWidget::insertNewByte() {
-    byteArray.insert(selectedCellStruct.index + 1, ByteRectStruct{0, byteArray[selectedCellStruct.index].rect});
-    selectedCellStruct.mask = MASK::FIRST;
-    selectedCellStruct.index++;
+    if (selectedCellStruct.index >= 0) {
+        byteArray.insert(selectedCellStruct.index + 1, ByteRectStruct{0, byteArray[selectedCellStruct.index].rect});
+        selectedCellStruct.mask = MASK::FIRST;
+        selectedCellStruct.index++;
 
-    drawRows();
-    selectedCellStruct.selection = byteArray[selectedCellStruct.index].rect;
-    selectedCellStruct.selection.setRight(selectedCellStruct.selection.center().x());
+        drawRows();
+        selectedCellStruct.selection = byteArray[selectedCellStruct.index].rect;
+        selectedCellStruct.selection.setRight(selectedCellStruct.selection.center().x());
+    } else {
+        if (byteArray.empty()) {
+            byteArray += ByteRectStruct{0, getCellRect()};
+        }
+    }
 }
 
 void HexWidget::removeCurrent() {
     const int size = byteArray.size();
 
-    if (size == 1) {
+    if (size < 1) {
+        return;
+    } else if (size == 1) {
         byteArray.removeAt(0);
         selectedCellStruct.index = -1;
         return;
-    }
-
-    if (selectedCellStruct.index < size - 1) {
+    } else if (selectedCellStruct.index < size - 1) {
         byteArray.removeAt(selectedCellStruct.index);
     } else {
         byteArray.removeAt(selectedCellStruct.index);
