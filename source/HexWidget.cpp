@@ -443,3 +443,11 @@ void HexWidget::resizeBuffer() {
         byteArray.resize(maximumSize);
     }
 }
+
+QByteArray HexWidget::getBuffer() {
+    QByteArray array;
+    for (auto b : byteArray) {
+        array.append((char) b.byte);
+    }
+    return array;
+}

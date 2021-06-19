@@ -33,6 +33,8 @@ public:
 
     void setMinimum(int newMaximumSize);
 
+    QByteArray getBuffer();
+
 private:
     SelectedCellStruct selectedCellStruct{};
     QVector<ByteRectStruct> byteArray{};

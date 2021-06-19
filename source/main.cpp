@@ -9,5 +9,7 @@ int main(int argc, char *argv[]) {
     hexWidget.setMinimum(50);
     hexWidget.resize(750, 480);
 
+    qDebug() << hexWidget.getBuffer();
+
     return QApplication::exec();
 }
