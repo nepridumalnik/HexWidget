@@ -29,9 +29,9 @@ public:
 
     void clearBuffer();
 
-    void setMaximum(uint64_t newMinimumSize);
+    void setMaximum(int newMinimumSize);
 
-    void setMinimum(uint64_t newMaximumSize);
+    void setMinimum(int newMaximumSize);
 
 private:
     SelectedCellStruct selectedCellStruct{};
@@ -39,8 +39,8 @@ private:
     int columnNumber = 16;
     int rowWidth = 0;
     int columnOffset = 0;
-    uint64_t minimumSize = 0;
-    uint64_t maximumSize = UINT64_MAX;
+    int minimumSize = 0;
+    int maximumSize = INT_MAX;
     QFont appFont;
     QFontMetrics *fm = nullptr;
     QColor selectionColor;

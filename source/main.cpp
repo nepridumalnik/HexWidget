@@ -5,9 +5,8 @@ int main(int argc, char *argv[]) {
 
     HexWidget hexWidget;
     hexWidget.show();
-    hexWidget.setBuffer(QByteArray("Some test data, another test dat"));
-    hexWidget.setMinimum(14);
-    hexWidget.setMaximum(20);
+    hexWidget.setBuffer(QByteArray("Some test data, another test data"));
+    hexWidget.setMinimum(50);
     hexWidget.resize(750, 480);
 
     return QApplication::exec();

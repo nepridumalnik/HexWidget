@@ -31,8 +31,13 @@ void HexWidget::prependBuffer(const QByteArray &prependByteArray) {
 }
 
 void HexWidget::appendBuffer(const QByteArray &appendByteArray) {
+    int counter = 0;
     for (auto b : appendByteArray) {
+        if (counter >= maximumSize) {
+            break;
+        }
         byteArray.append(ByteRectStruct{(quint8) b, getCellRect()});
+        counter++;
     }
     update();
 }
@@ -91,7 +96,7 @@ void HexWidget::drawHeader() {
 void HexWidget::drawRows() {
     bool paintingAlowed = painter->isActive();
     cursor = startHexPoint;
-    quint64 counter = 0;
+    int counter = 0;
 
     for (auto &i : byteArray) {
         i.rect.moveBottomLeft(cursor);
@@ -375,7 +380,7 @@ void HexWidget::insertNewByte() {
 }
 
 void HexWidget::removeCurrent() {
-    const uint64_t size = byteArray.size();
+    const int size = byteArray.size();
 
     if (size <= minimumSize) {
         return;
@@ -410,10 +415,20 @@ void HexWidget::removePrevious() {
     }
 }
 
-void HexWidget::setMinimum(uint64_t newMinimumSize) {
+void HexWidget::setMinimum(int newMinimumSize) {
     minimumSize = newMinimumSize;
+    int tmp = minimumSize - byteArray.size();
+    if (tmp > 0) {
+        for (int i = 0; i < tmp; ++i) {
+            byteArray.append(ByteRectStruct{0, getCellRect()});
+        }
+    }
 }
 
-void HexWidget::setMaximum(uint64_t newMaximumSize) {
+void HexWidget::setMaximum(int newMaximumSize) {
     maximumSize = newMaximumSize;
+
+    if (maximumSize < byteArray.size()) {
+        byteArray.resize(maximumSize);
+    }
 }
