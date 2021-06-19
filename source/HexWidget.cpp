@@ -13,10 +13,13 @@ HexWidget::HexWidget(QWidget *parent) : QWidget(parent) {
     appFont = property("font").value<QFont>();
     appFont.setPixelSize(14);
     setFont(appFont);
+
+    painter = new QPainter(this);
 }
 
 HexWidget::~HexWidget() {
     delete fm;
+    delete painter;
 }
 
 void HexWidget::prependBuffer(const QByteArray &prependByteArray) {
@@ -60,33 +63,32 @@ void HexWidget::newRow(QPoint point) {
     cursor.setX(point.x());
 }
 
-void HexWidget::drawSelection(QPainter &painter) {
+void HexWidget::drawSelection() {
     if (selectedCellStruct.index == -1) {
         return;
     }
 
-    painter.fillRect(selectedCellStruct.selection, selectionColor);
+    painter->fillRect(selectedCellStruct.selection, selectionColor);
 }
 
 void HexWidget::paintEvent(QPaintEvent *event) {
-    QPainter painter(this);
-    painter.
-            setPen(charColor);
-    painter.
-            setFont(QFont("monospace", appFont.pixelSize())
-    );
+    painter->begin(this);
+    painter->setPen(charColor);
+    painter->setFont(QFont("monospace", appFont.pixelSize()));
 
-    drawSelection(painter);
-    drawHeader(painter);
-    drawRows(painter);
-    drawAscii(painter);
+    drawSelection();
+    drawHeader();
+    drawRows();
+    drawAscii();
+
+    painter->end();
 }
 
-void HexWidget::drawHeader(QPainter &painter) {
+void HexWidget::drawHeader() {
 
 }
 
-void HexWidget::drawRows(QPainter &painter) {
+void HexWidget::drawRows(bool paintingAlowed) {
     cursor = startHexPoint;
     quint64 counter = 0;
 
@@ -98,7 +100,7 @@ void HexWidget::drawRows(QPainter &painter) {
             text = QChar('0') + text;
         }
 
-        painter.drawText(cursor, text.right(2));
+        if (paintingAlowed) { painter->drawText(cursor, text.right(2)); }
         counter++;
 
         newColumn();
@@ -110,7 +112,7 @@ void HexWidget::drawRows(QPainter &painter) {
     }
 }
 
-void HexWidget::drawAscii(QPainter &painter) {}
+void HexWidget::drawAscii() {}
 
 void HexWidget::mousePressEvent(QMouseEvent *event) {
     int key = event->button();
@@ -163,6 +165,9 @@ void HexWidget::keyPressEvent(QKeyEvent *event) {
                 break;
             case Qt::Key_Down:
                 goDown();
+                break;
+            case Qt::Key_Space:
+                insertNewByte();
                 break;
             default:
                 resetByteValue(key);
@@ -278,13 +283,14 @@ void HexWidget::setBackgroundColor(const char *color) {
     backgroundColor.setNamedColor(color);
 }
 
-void HexWidget::resetByteValue(char b) {
+void HexWidget::resetByteValue(int key) {
     if (selectedCellStruct.index < 0 or selectedCellStruct.index >= byteArray.size()) {
         return;
     }
 
-    quint8 newByte = 0;
-    switch (b) {
+    quint8 newByte;
+
+    switch (key) {
         case Qt::Key_0:
             newByte = BYTE_VALUE::ZERO;
             break;
@@ -333,9 +339,6 @@ void HexWidget::resetByteValue(char b) {
         case Qt::Key_F:
             newByte = BYTE_VALUE::F;
             break;
-        case Qt::Key_Space:
-            insertNewByte();
-            return;
         default:
             return;
     }
@@ -347,7 +350,12 @@ void HexWidget::resetByteValue(char b) {
 }
 
 void HexWidget::insertNewByte() {
-    byteArray.insert(selectedCellStruct.index, ByteRectStruct{(quint8) 0, getCellRect()});
+    byteArray.insert(selectedCellStruct.index + 1, ByteRectStruct{0, byteArray[selectedCellStruct.index].rect});
     selectedCellStruct.mask = MASK::FIRST;
+    selectedCellStruct.index++;
+
+    drawRows(false);
+    selectedCellStruct.selection = byteArray[selectedCellStruct.index].rect;
+    selectedCellStruct.selection.setRight(selectedCellStruct.selection.center().x());
     update();
 }

@@ -40,6 +40,7 @@ private:
     QColor selectionColor;
     QColor charColor;
     QColor backgroundColor;
+    QPainter *painter = nullptr;
 
     const QPoint startOffsetPoint = QPoint(20, 50);
     const QPoint startHexPoint = QPoint(75, 50);
@@ -49,15 +50,15 @@ private:
 
     void newRow(QPoint point);
 
-    void drawSelection(QPainter &painter);
+    void drawSelection();
 
     void paintEvent(QPaintEvent *event) override;
 
-    void drawHeader(QPainter &painter);
+    void drawHeader();
 
-    void drawRows(QPainter &painter);
+    void drawRows(bool paintingAlowed = true);
 
-    void drawAscii(QPainter &painter);
+    void drawAscii();
 
     void mousePressEvent(QMouseEvent *event) override;
 
@@ -85,7 +86,7 @@ private:
 
     QRect getCellRect();
 
-    void resetByteValue(char b);
+    void resetByteValue(int key);
 
     void insertNewByte();
 };
