@@ -88,7 +88,8 @@ void HexWidget::drawHeader() {
 
 }
 
-void HexWidget::drawRows(bool paintingAlowed) {
+void HexWidget::drawRows() {
+    bool paintingAlowed = painter->isActive();
     cursor = startHexPoint;
     quint64 counter = 0;
 
@@ -354,7 +355,7 @@ void HexWidget::insertNewByte() {
     selectedCellStruct.mask = MASK::FIRST;
     selectedCellStruct.index++;
 
-    drawRows(false);
+    drawRows();
     selectedCellStruct.selection = byteArray[selectedCellStruct.index].rect;
     selectedCellStruct.selection.setRight(selectedCellStruct.selection.center().x());
     update();

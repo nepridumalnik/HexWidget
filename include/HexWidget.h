@@ -15,7 +15,7 @@ class HexWidget : public QWidget {
 public:
     explicit HexWidget(QWidget *parent = nullptr);
 
-    ~HexWidget();
+    ~HexWidget() override;
 
     void prependBuffer(const QByteArray &prependByteArray);
 
@@ -56,7 +56,7 @@ private:
 
     void drawHeader();
 
-    void drawRows(bool paintingAlowed = true);
+    void drawRows();
 
     void drawAscii();
 
