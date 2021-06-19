@@ -13,6 +13,8 @@ HexWidget::HexWidget(QWidget *parent) : QWidget(parent) {
     appFont = property("font").value<QFont>();
     appFont.setPixelSize(14);
     setFont(appFont);
+
+    setFocusPolicy(Qt::StrongFocus);
 }
 
 HexWidget::~HexWidget() {
@@ -41,6 +43,7 @@ void HexWidget::appendBuffer(const QByteArray &appendByteArray) {
         byteArray.append(ByteRectStruct{(quint8) b, getCellRect()});
         counter++;
     }
+
     update();
 }
 
@@ -78,7 +81,6 @@ void HexWidget::drawSelection(QPainter *painter) {
 }
 
 void HexWidget::paintEvent(QPaintEvent *event) {
-
     QPainter painter(this);
     painter.setPen(charColor);
     painter.setFont(QFont("monospace", appFont.pixelSize()));
@@ -116,6 +118,7 @@ void HexWidget::mousePressEvent(QMouseEvent *event) {
     if (key == Qt::LeftButton) {
         selection();
     }
+
     update();
 }
 
