@@ -468,6 +468,7 @@ void HexWidget::setByte(quint16 index, quint8 newByte) {
         throw std::exception(OUT_OF_BOUND_MSG);
     }
     byteArray[index].byte = newByte;
+    emit onTextUpdate();
 }
 
 void HexWidget::onTextUpdate() {
