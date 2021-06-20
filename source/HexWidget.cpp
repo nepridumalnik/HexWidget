@@ -31,7 +31,7 @@ void HexWidget::prependBuffer(const QByteArray &prependByteArray) {
         counter++;
     }
 
-    update();
+    emit onTextUpdate();
 }
 
 void HexWidget::appendBuffer(const QByteArray &appendByteArray) {
@@ -44,7 +44,7 @@ void HexWidget::appendBuffer(const QByteArray &appendByteArray) {
         counter++;
     }
 
-    update();
+    emit onTextUpdate();
 }
 
 void HexWidget::setBuffer(const QByteArray &setByteArray) {
@@ -119,7 +119,7 @@ void HexWidget::mousePressEvent(QMouseEvent *event) {
         selection();
     }
 
-    update();
+    emit onTextUpdate();
 }
 
 void HexWidget::selection() {
@@ -174,7 +174,7 @@ void HexWidget::keyPressEvent(QKeyEvent *event) {
             break;
     }
 
-    update();
+    emit onTextUpdate();
 }
 
 void HexWidget::goRight() {
@@ -276,7 +276,7 @@ void HexWidget::setWidgetFont(const QFont &font) {
         i.rect = getCellRect();
     }
 
-    update();
+    emit onTextUpdate();
 }
 
 QRect HexWidget::getCellRect() {
@@ -472,4 +472,8 @@ void HexWidget::setByte(quint16 index, quint8 newByte) {
         throw std::exception(msg.c_str());
     }
     byteArray[index].byte = newByte;
+}
+
+void HexWidget::onTextUpdate() {
+    update();
 }

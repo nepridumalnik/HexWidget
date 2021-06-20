@@ -41,6 +41,9 @@ public:
 
     QByteArray getBuffer();
 
+signals:
+    void onTextUpdate();
+
 private:
     SelectedCellStruct selectedCellStruct{};
     QVector<ByteRectStruct> byteArray{};
