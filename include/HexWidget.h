@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdexcept>
+
 #include <QDebug>
 #include <QWidget>
 #include <QPainter>
@@ -32,6 +34,10 @@ public:
     void setMaximum(quint16 newMinimumSize);
 
     void setMinimum(quint16 newMaximumSize);
+
+    quint8 getByte(quint16 index);
+
+    void setByte(quint16 index, quint8 newByte);
 
     QByteArray getBuffer();
 

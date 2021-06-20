@@ -455,3 +455,21 @@ QByteArray HexWidget::getBuffer() {
     }
     return array;
 }
+
+quint8 HexWidget::getByte(quint16 index) {
+    if (index > byteArray.size() - 1) {
+        std::string msg = OUT_OF_BOUND_MSG;
+        msg += __FUNCTION__;
+        throw std::exception(msg.c_str());
+    }
+    return byteArray[index].byte;
+}
+
+void HexWidget::setByte(quint16 index, quint8 newByte) {
+    if (index > byteArray.size() - 1) {
+        std::string msg = OUT_OF_BOUND_MSG;
+        msg += __FUNCTION__;
+        throw std::exception(msg.c_str());
+    }
+    byteArray[index].byte = newByte;
+}
