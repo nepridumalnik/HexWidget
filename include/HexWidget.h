@@ -84,7 +84,7 @@ private:
 
     void goDown();
 
-    void setFont(const QFont &font);
+    void setWidgetFont(const QFont &font);
 
     void setSelectionColor(const char *color);
 

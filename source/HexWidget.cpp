@@ -12,7 +12,7 @@ HexWidget::HexWidget(QWidget *parent) : QWidget(parent) {
 
     appFont = property("font").value<QFont>();
     appFont.setPixelSize(14);
-    setFont(appFont);
+    setWidgetFont(appFont);
 
     setFocusPolicy(Qt::StrongFocus);
 }
@@ -261,7 +261,7 @@ void HexWidget::setSelectionCell(int i, MASK mask) {
     }
 }
 
-void HexWidget::setFont(const QFont &font) {
+void HexWidget::setWidgetFont(const QFont &font) {
     QWidget::setFont(font);
     appFont = font;
 
