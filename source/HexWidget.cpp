@@ -56,7 +56,8 @@ auto HexWidget::getBufferSize() const {
     return byteArray.size();
 }
 
-auto HexWidget::getBuffer() const {
+const ByteRectStruct HexWidget::getBuffer() const {+
+    QByteArray qByteArray;
     return byteArray.data();
 }
 
@@ -473,16 +474,10 @@ QByteArray HexWidget::getBuffer() {
 }
 
 quint8 HexWidget::getByte(quint16 index) {
-    if (index > byteArray.size() - 1) {
-        throw std::exception(OUT_OF_BOUND_MSG);
-    }
     return byteArray[index].byte;
 }
 
 void HexWidget::setByte(quint16 index, quint8 newByte) {
-    if (index > byteArray.size() - 1) {
-        throw std::exception(OUT_OF_BOUND_MSG);
-    }
     byteArray[index].byte = newByte;
     emit onTextUpdate();
 }

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <stdexcept>
-
 #include <QDebug>
 #include <QWidget>
 #include <QPainter>
@@ -11,7 +9,7 @@
 
 #include "Structures.h"
 
-#define SYMBOL "C"
+#define SYMBOL 'C'
 
 class HexWidget : public QWidget {
 public:
@@ -25,7 +23,7 @@ public:
 
     void setBuffer(const QByteArray &setByteArray);
 
-    auto getBufferSize() const;
+    int getBufferSize() const;
 
     auto getBuffer() const;
 
