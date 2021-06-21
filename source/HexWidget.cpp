@@ -276,7 +276,7 @@ void HexWidget::setWidgetFont(const QFont &font) {
 
     fm = new QFontMetrics(appFont);
 
-    columnOffset = fm->horizontalAdvance(SYMBOL) * 3;
+    columnOffset = fm->boundingRect(QChar(SYMBOL)).width() * 3;
     rowWidth = fm->height() * 2;
 
     for (auto &i : byteArray) {
