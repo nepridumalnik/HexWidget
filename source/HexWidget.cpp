@@ -313,6 +313,7 @@ void HexWidget::resetByteValue(int key) {
         return;
     }
 
+    const quint8 originalByte = byteArray[selectedCellStruct.index].byte;
     quint8 newByte = 0;
 
     switch (key) {
@@ -371,7 +372,7 @@ void HexWidget::resetByteValue(int key) {
     byteArray[selectedCellStruct.index].byte &= ~selectedCellStruct.mask;
     byteArray[selectedCellStruct.index].byte |= selectedCellStruct.mask & newByte;
 
-    if (selectedCellStruct.index == byteArray.size() - 1 and MASK::SECOND == selectedCellStruct.mask) {
+    if (selectedCellStruct.index == byteArray.size() - 1 and MASK::SECOND == selectedCellStruct.mask and byteArray[selectedCellStruct.index].byte == originalByte) {
         insertNewByte();
     } else {
         goRight();
