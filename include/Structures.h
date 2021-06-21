@@ -4,8 +4,6 @@ constexpr char BLACK[] = "#000000";
 constexpr char WHITESMOKE[] = "#F5F5F5";
 constexpr char STEELBLUE[] = "#4682B4";
 
-constexpr char OUT_OF_BOUND_MSG[] = "Out of bound: ";
-
 constexpr int X_OFFS = 10;
 constexpr int Y_OFFS = 30;
 
