@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QtGlobal>
+
 constexpr char BLACK[] = "#000000";
 constexpr char WHITESMOKE[] = "#F5F5F5";
 constexpr char STEELBLUE[] = "#4682B4";
