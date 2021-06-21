@@ -80,6 +80,10 @@ void HexWidget::drawSelection(QPainter *painter) {
     }
 }
 
+void HexWidget::resizeText(QSize newSize) {
+    resize(newSize);
+}
+
 void HexWidget::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.setPen(charColor);
@@ -92,6 +96,8 @@ void HexWidget::paintEvent(QPaintEvent *event) {
 void HexWidget::drawRows(QPainter *painter) {
     cursor = startHexPoint;
     int counter = 0;
+
+    QSize hexSize;
 
     for (auto &i : byteArray) {
         i.rect.moveBottomLeft(cursor);
@@ -109,8 +115,13 @@ void HexWidget::drawRows(QPainter *painter) {
         if (counter == columnNumber) {
             counter = 0;
             newRow(startHexPoint);
+            hexSize.setWidth(i.rect.right() + X_OFFS);
         }
+
+        hexSize.setHeight(i.rect.bottom() + Y_OFFS);
     }
+
+    resizeText(hexSize);
 }
 
 void HexWidget::mousePressEvent(QMouseEvent *event) {

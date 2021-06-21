@@ -39,6 +39,8 @@ public:
 
     void setByte(quint16 index, quint8 newByte);
 
+    void resizeText(QSize newSize);
+
     QByteArray getBuffer();
 
 signals:
@@ -58,7 +60,7 @@ private:
     QColor charColor;
     QColor backgroundColor;
 
-    const QPoint startHexPoint = QPoint(10, 30);
+    const QPoint startHexPoint = QPoint(X_OFFS, Y_OFFS);
     QPoint cursor;
 
     void newColumn();
