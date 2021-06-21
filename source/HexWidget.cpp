@@ -281,7 +281,7 @@ void HexWidget::setWidgetFont(const QFont &font) {
 
 QRect HexWidget::getCellRect() {
     QRect rect;
-    rect.setSize(QSize(rowWidth * 0.9f, fm->height() * 1.2));
+    rect.setSize(QSize(rowWidth * 0.7f, fm->height() * 1.1));
     return rect;
 }
 
