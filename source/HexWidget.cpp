@@ -52,13 +52,8 @@ void HexWidget::setBuffer(const QByteArray &setByteArray) {
     appendBuffer(setByteArray);
 }
 
-auto HexWidget::getBufferSize() const {
+int HexWidget::getBufferSize() const {
     return byteArray.size();
-}
-
-const ByteRectStruct HexWidget::getBuffer() const {+
-    QByteArray qByteArray;
-    return byteArray.data();
 }
 
 void HexWidget::clearBuffer() {

@@ -25,8 +25,6 @@ public:
 
     int getBufferSize() const;
 
-    auto getBuffer() const;
-
     void clearBuffer();
 
     void setMaximum(quint16 newMinimumSize);
