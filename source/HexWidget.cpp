@@ -185,7 +185,7 @@ void HexWidget::keyPressEvent(QKeyEvent *event) {
 }
 
 void HexWidget::goRight() {
-    if (-1 == selectedCellStruct.index and !byteArray.empty()) {
+    if (-1 == selectedCellStruct.index && !byteArray.empty()) {
         selectedCellStruct.index = byteArray.size() - 1;
     }
 
@@ -205,7 +205,7 @@ void HexWidget::goRight() {
 }
 
 void HexWidget::goLeft() {
-    if (-1 == selectedCellStruct.index and !byteArray.empty()) {
+    if (-1 == selectedCellStruct.index && !byteArray.empty()) {
         selectedCellStruct.index = 0;
     }
 
@@ -225,7 +225,7 @@ void HexWidget::goLeft() {
 }
 
 void HexWidget::goUp() {
-    if (-1 == selectedCellStruct.index and !byteArray.empty()) {
+    if (-1 == selectedCellStruct.index && !byteArray.empty()) {
         selectedCellStruct.index = 0;
     }
 
@@ -239,7 +239,7 @@ void HexWidget::goUp() {
 }
 
 void HexWidget::goDown() {
-    if (-1 == selectedCellStruct.index and !byteArray.empty()) {
+    if (-1 == selectedCellStruct.index && !byteArray.empty()) {
         selectedCellStruct.index = byteArray.size() - 1;
     }
 
@@ -253,7 +253,7 @@ void HexWidget::goDown() {
 }
 
 void HexWidget::setSelectionCell(int i, MASK mask) {
-    if (i < 0 or i >= byteArray.size()) {
+    if (i < 0 || i >= byteArray.size()) {
         return;
     }
 
@@ -305,7 +305,7 @@ void HexWidget::setBackgroundColor(const char *color) {
 }
 
 void HexWidget::resetByteValue(int key) {
-    if (selectedCellStruct.index < 0 or selectedCellStruct.index >= byteArray.size()) {
+    if (selectedCellStruct.index < 0 || selectedCellStruct.index >= byteArray.size()) {
         return;
     }
 
@@ -368,7 +368,7 @@ void HexWidget::resetByteValue(int key) {
     byteArray[selectedCellStruct.index].byte &= ~selectedCellStruct.mask;
     byteArray[selectedCellStruct.index].byte |= selectedCellStruct.mask & newByte;
 
-    if (selectedCellStruct.index == byteArray.size() - 1 and MASK::SECOND == selectedCellStruct.mask and byteArray[selectedCellStruct.index].byte == originalByte) {
+    if (selectedCellStruct.index == byteArray.size() - 1 && MASK::SECOND == selectedCellStruct.mask && byteArray[selectedCellStruct.index].byte == originalByte) {
         insertNewByte();
     } else {
         goRight();

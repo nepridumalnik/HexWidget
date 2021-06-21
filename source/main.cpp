@@ -10,19 +10,5 @@ int main(int argc, char *argv[]) {
 
     qDebug() << hexWidget.getBuffer();
 
-    try {
-        hexWidget.getByte(100);
-    }
-    catch (std::exception &e) {
-        qDebug() << e.what();
-    }
-
-    try {
-        hexWidget.setByte(100, 0);
-    }
-    catch (std::exception &e) {
-        qDebug() << e.what();
-    }
-
     return QApplication::exec();
 }
