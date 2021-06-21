@@ -77,7 +77,7 @@ void HexWidget::drawSelection(QPainter *painter) {
 }
 
 void HexWidget::resizeText(QSize newSize) {
-    resize(newSize);
+    setMinimumSize(newSize);
 }
 
 void HexWidget::paintEvent(QPaintEvent *event) {

@@ -27,9 +27,9 @@ public:
 
     void clearBuffer();
 
-    void setMaximum(quint16 newMinimumSize);
+    void setMaximum(quint16 newMaximumSize);
 
-    void setMinimum(quint16 newMaximumSize);
+    void setMinimum(quint16 newMinimumSize);
 
     quint8 getByte(quint16 index);
 
