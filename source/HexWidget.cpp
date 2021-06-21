@@ -419,12 +419,12 @@ void HexWidget::removeCurrent() {
 }
 
 void HexWidget::removePrevious() {
-    if (byteArray.size() <= minimumSize) {
+    if (byteArray.size() <= minimumSize || 0 == selectedCellStruct.index) {
         return;
     }
 
-    if (selectedCellStruct.index > 0) {
-        selectedCellStruct.index--;
+    selectedCellStruct.index--;
+    if (0 != selectedCellStruct.index) {
         byteArray.removeAt(selectedCellStruct.index);
         selectedCellStruct.selection = byteArray[selectedCellStruct.index - 1].rect;
         selectedCellStruct.selection.setRight(selectedCellStruct.selection.center().x());
