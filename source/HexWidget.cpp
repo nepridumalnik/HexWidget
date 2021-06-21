@@ -360,7 +360,11 @@ void HexWidget::resetByteValue(int key) {
     byteArray[selectedCellStruct.index].byte &= ~selectedCellStruct.mask;
     byteArray[selectedCellStruct.index].byte |= selectedCellStruct.mask & newByte;
 
-    goRight();
+    if (selectedCellStruct.index == byteArray.size() - 1 and MASK::SECOND == selectedCellStruct.mask) {
+        insertNewByte();
+    } else {
+        goRight();
+    }
 }
 
 void HexWidget::insertNewByte() {
