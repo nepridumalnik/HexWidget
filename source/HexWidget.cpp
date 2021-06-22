@@ -428,6 +428,9 @@ void HexWidget::removePrevious() {
         byteArray.removeAt(selectedCellStruct.index);
         selectedCellStruct.selection = byteArray[selectedCellStruct.index - 1].rect;
         selectedCellStruct.selection.setRight(selectedCellStruct.selection.center().x());
+        selectedCellStruct.mask = MASK::FIRST;
+        goLeft();
+        goLeft();
     }
 }
 

@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
 
     HexWidget *hexWidget = new HexWidget;
     hexWidget->setBuffer(QByteArray("Some test data, another test data"));
-    hexWidget->setMinimum(100);
+    hexWidget->setMinimum(14);
 
     qDebug() << hexWidget->getBuffer();
 
