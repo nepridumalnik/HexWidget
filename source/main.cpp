@@ -1,7 +1,10 @@
 #include "HexWidget.h"
+
+#include <QDebug>
 #include <QScrollArea>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     QApplication a(argc, argv);
 
     HexWidget *hexWidget = new HexWidget;
